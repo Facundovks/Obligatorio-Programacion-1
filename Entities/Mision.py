@@ -1,3 +1,4 @@
+from Entities import Aventurero
 class Mision:
     def __init__(self, nombre, rango, recompensa, completado, tipo, min_miembros=None):
         self._nombre = nombre

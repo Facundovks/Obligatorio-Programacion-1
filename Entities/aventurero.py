@@ -1,19 +1,25 @@
 from abc import ABC, abstractmethod
 
 class Aventurero(ABC):
-    def __init__(self, nombre, id_, puntos_habilidad, experiencia, dinero):
+    def __init__(self, nombre, clase, id_, puntos_habilidad, experiencia, dinero):
         self._nombre = nombre
+        self._clase = clase
         self._id = id_
         self._puntos_habilidad = puntos_habilidad
         self._experiencia = experiencia
         self._dinero = dinero
-
       # Métodos getter y setter
     def get_nombre(self):
         return self._nombre
     
     def set_nombre(self, nombre):
         self._nombre = nombre
+
+    def get_clase(self):
+        return self._clase
+    
+    def set_clase(self, clase):
+        self._clase = clase
 
     def get_id(self):
         return self._id
@@ -38,7 +44,7 @@ class Aventurero(ABC):
     
     def set_dinero(self, dinero):
         self._dinero = dinero
-
+    
     @abstractmethod
     def __str__(self):
         pass
