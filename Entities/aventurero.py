@@ -8,7 +8,7 @@ class Aventurero(ABC):
         self._puntos_habilidad = puntos_habilidad
         self._experiencia = experiencia
         self._dinero = dinero
-      # Métodos getter y setter
+
     def get_nombre(self):
         return self._nombre
     

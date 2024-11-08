@@ -27,3 +27,10 @@ class Ranger(Aventurero):
     
     def set_mascota(self, mascota):
         self._mascota = mascota
+
+    def __str__(self):
+        
+        if self._mascota:
+            return f"Ranger: {self.nombre}, ID: {self.id_}, Puntos de Habilidad: {self.puntos_habilidad}, Experiencia: {self.experiencia}, Dinero: {self.dinero}, Mascota: ({self._mascota})"
+        else:
+            return f"Ranger: {self.nombre}, ID: {self.id_}, Puntos de Habilidad: {self.puntos_habilidad}, Experiencia: {self.experiencia}, Dinero: {self.dinero}, Mascota: No tiene mascota"

@@ -10,3 +10,6 @@ class Mago(Aventurero):
     
     def set_mana(self, mana):
         self._mana = mana
+
+    def __str__(self):
+        return f"Mago: {self.nombre}, ID: {self.id_}, Mana: {self._mana}, Puntos de Habilidad: {self.puntos_habilidad}, Experiencia: {self.experiencia}, Dinero: {self.dinero}"
