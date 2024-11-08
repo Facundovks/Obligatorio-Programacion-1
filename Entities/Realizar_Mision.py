@@ -1,8 +1,6 @@
-from Entities import Aventurero
-from Entities import Mision
-from Entities import Mago
-from Entities import Ranger
-from Entities import Guerrero
+from Mago import Mago
+from Ranger import Ranger
+from Guerrero import Guerrero
 
 class Juego():
     def __init__(self):
