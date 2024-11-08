@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 class Aventurero(ABC):
-    def __init__(self, nombre, clase, id_, puntos_habilidad, experiencia, dinero):
+    def __init__(self, nombre, id_,clase , puntos_habilidad, experiencia, dinero):
         self._nombre = nombre
         self._clase = clase
         self._id = id_

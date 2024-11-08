@@ -1,4 +1,4 @@
-from aventurero import Aventurero
+from .aventurero import Aventurero
 class Mision:
     def __init__(self, nombre, rango, recompensa, completado, tipo, min_miembros=None):
         self._nombre = nombre
@@ -43,3 +43,14 @@ class Mision:
     
     def set_min_miembros(self, min_miembros):
         self._min_miembros = min_miembros 
+
+    def __str__(self):
+        completado_str = "Completada" if self._completado else "No completada"
+        tipo_str = f"Tipo: {self._tipo}"
+        min_miembros_str = f", Mínimo miembros: {self._min_miembros}" if self._tipo == "grupal" else ""
+        
+        return (f"Misión: {self._nombre}\n"
+                f"Rango: {self._rango}\n"
+                f"Recompensa: {self._recompensa} monedas\n"
+                f"{completado_str}\n"
+                f"{tipo_str}{min_miembros_str}")

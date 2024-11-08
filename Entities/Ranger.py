@@ -1,4 +1,4 @@
-from aventurero import Aventurero
+from .aventurero import Aventurero
 
 class Mascota:
     def __init__(self, nombre, puntos_habilidad):
@@ -19,7 +19,7 @@ class Mascota:
 
 class Ranger(Aventurero):
     def __init__(self, nombre, id_, puntos_habilidad, experiencia, dinero, mascota=None):
-        super().__init__(nombre, id_, puntos_habilidad, experiencia, dinero)
+        super().__init__(nombre, id_,"Ranger", puntos_habilidad, experiencia, dinero)
         self._mascota = mascota
 
     def get_mascota(self):
@@ -29,7 +29,7 @@ class Ranger(Aventurero):
         self._mascota = mascota
 
     def __str__(self):
-        
+
         if self._mascota:
             return f"Ranger: {self.nombre}, ID: {self.id_}, Puntos de Habilidad: {self.puntos_habilidad}, Experiencia: {self.experiencia}, Dinero: {self.dinero}, Mascota: ({self._mascota})"
         else:
