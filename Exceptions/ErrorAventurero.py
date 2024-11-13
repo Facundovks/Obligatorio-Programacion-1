@@ -1,0 +1,2 @@
+class ErrorAventurero(Exception):
+    pass
