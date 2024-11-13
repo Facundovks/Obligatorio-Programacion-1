@@ -8,6 +8,7 @@ class Aventurero(ABC):
         self._puntos_habilidad = puntos_habilidad
         self._experiencia = experiencia
         self._dinero = dinero
+        self._misiones_completadas = 0
 
     def get_nombre(self):
         return self._nombre
@@ -44,6 +45,12 @@ class Aventurero(ABC):
     
     def set_dinero(self, dinero):
         self._dinero = dinero
+
+    def completar_mision(self):
+        self._misiones_completadas += 1
+
+    def get_misiones_completadas(self):
+        return self._misiones_completadas  
     
     @abstractmethod
     def __str__(self):
