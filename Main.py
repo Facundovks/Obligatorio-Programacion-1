@@ -69,9 +69,140 @@ def opcion_registrar_mision():
     registrar_mision(nombre, rango, recompensa, completado, Tipo, min_miembros)
 
 
-def opcion_realizar_mision():
-    pass
 
+        #Buscar la misión por su nombre
+def opcion_realizar_mision():
+    nombre_mision = str(input("Escriba el nombre de la mision: "))
+    mision = None
+    for m in misiones:
+        if m.get_nombre() == nombre_mision:
+            mision = m
+            break
+    if not mision:
+        print("Misión no encontrada!")
+        return
+    if mision.is_completado():
+        print("Esta mision ya ha sido completada!")
+        return
+    
+    #Solicitar ID de participantes hasta que no haya mas
+    participantes = []
+    #Matriz con los valores de cada rango
+    rangos = [[1, 20],[21, 40], [41,60], [61,80], [81, 100]]
+    while True:
+        id_aventurero = input("Ingrese el ID del aventurero (o 'fin' para terminar): ")
+        if id_aventurero == 'fin':
+            break
+
+        aventurero = None
+        for a in aventureros:
+            if str(a.get_id()) == id_aventurero:
+                aventurero = a
+                participantes.append(aventurero)
+                break
+        if not aventurero:
+            print("El aventurero no existe!")
+            return
+        #Validar que el rango del aventurero esté acorde al rango de la misión
+        for a in aventureros:
+            if aventurero.get_clase() == "Ranger":
+                if rangos[1][0] > aventurero.get_puntos_de_habilidad() + Ranger.get_puntos_habilidad:
+                    print("El rango de su Ranger es 1")
+                elif rangos[2][0] > aventurero.get_puntos_de_habilidad() + Ranger.get_puntos_habilidad:
+                    print("El rango de su Ranger es 2")
+                elif rangos[3][0] > aventurero.get_puntos_de_habilidad() + Ranger.get_puntos_habilidad:
+                    print("El rango de su Ranger es 3")
+                elif rangos[4][0] > aventurero.get_puntos_de_habilidad() + Ranger.get_puntos_habilidad:
+                    print ("El rango de su Ranger es 4")
+                elif rangos[4][0] <= aventurero.get_puntos_de_habilidad():
+                    print ("El rango de su Ranger es 5")
+            elif aventurero.get_clase == "Mago":
+                if rangos[1][0] > aventurero.get_puntos_de_habilidad() + Mago.get_mana/10:
+                    print("El rango de su Mago es 1")
+                elif rangos[2][0] > aventurero.get_puntos_de_habilidad() + Mago.get_mana/10:
+                    print("El rango de su Mago es 2")
+                elif rangos[3][0] > aventurero.get_puntos_de_habilidad() + Mago.get_mana/10:
+                    print("El rango de su Mago es 3")
+                elif rangos[4][0] > aventurero.get_puntos_de_habilidad() + Mago.get_mana/10:
+                    print("El rango de su Mago es 4")
+                elif rangos[4][0] <= aventurero.get_puntos_de_habilidad() + Mago.get_mana/10:
+                    print("El rango de su Mago es 5")
+            elif aventurero.get_clase == "Guerrero":
+                if rangos[1][0] > aventurero.get_puntos_de_habilidad() + Guerrero.get_fuerza/2:
+                    print("El rango de su Guerrero es 1")
+                elif rangos[2][0] > aventurero.get_puntos_de_habilidad() + Guerrero.get_fuerza/2:
+                    print("El rango de su Guerrero es 2")
+                elif rangos[3][0] > aventurero.get_puntos_de_habilidad() + Guerrero.get_fuerza/2:
+                    print("El rango de su Guerrero es 3")
+                elif rangos[4][0] > aventurero.get_puntos_de_habilidad() + Guerrero.get_fuerza/2:
+                    print("El rango de su Guerrero es 4")
+                elif rangos[4][0] <= aventurero.get_puntos_de_habilidad() + Guerrero.get_fuerza/2:
+                    print("El rango de su Guerrero es 5")
+                    
+            #Ver si se cumplen los requisitos de la mision
+            if mision.get_tipo() == "grupal" and len(participantes) < mision.get_min_miembros():
+                print("No hay suficientes aventureros para realizar la misión!")
+                return
+            #Si se cumple todo, completar la mision
+            mision.completar_mision()
+            recompensa_por_aventurero = mision.get_recompensa() / len(participantes)
+            for p in participantes:
+                p.set_dinero(recompensa_por_aventurero + p.get_dinero())
+                if mision.get_rango() == 1:
+                    p.set_experiencia(5 + p.get_experiencia())
+                if mision.get_rango() == 2:
+                    p.set_experiencia(10 + p.get_experiencia())
+                if mision.get_rango() == 3:
+                    p.set_experiencia(20 + p.get_experiencia())
+                if mision.get_rango() == 4:
+                    p.set_experiencia(50 + p.get_experiencia())
+                if mision.get_rango() == 5:
+                    p.set_experiencia(100 + p.get_experiencia())
+
+def ver_top_10_aventureros_con_mas_misiones_resueltas():
+    aventureros_con_misiones_completadas = []
+    #Filtrar aventureros con misiones completadas
+    for aventurero in aventureros:
+        if aventurero.get_experiencia() == 0:
+            print("El aventurero no tiene misiones completadas")
+            return
+        else: 
+            aventureros_con_misiones_completadas.append(aventurero)
+            return
+    if not aventureros_con_misiones_completadas:
+        print("No hay aventureros con misiones completadas")
+        return
+    #Ordenar los aventureros de mayor a menor, segun su experiencia, en caso de misma experiencia, ordenar alfabeticamente
+    n = len(aventureros_con_misiones_completadas)
+    for i in range(n):
+        max_a = i
+        for j in range(i + 1, n):
+            if (aventureros_con_misiones_completadas[j].get_experiencia() > aventureros_con_misiones_completadas[i].get_experiencia())or \
+                (aventureros_con_misiones_completadas[j].get_experiencia() == aventureros_con_misiones_completadas[i].get_experiencia) and \
+                (aventureros_con_misiones_completadas[j].get_nombre() > aventureros_con_misiones_completadas[i].get_nombre()):
+                max_a = j
+                
+        #Intercambiar los rankings 
+        aventureros_con_misiones_completadas[i], aventureros_con_misiones_completadas[max_a] = aventureros_con_misiones_completadas[max_a] , aventureros_con_misiones_completadas[i]
+    top_10 = aventureros_con_misiones_completadas[:10]
+    for i in top_10:
+        print(f"{i+1}-{top_10[i]}")
+
+def ver_top_5_misiones_con_mas_recompensa(self):
+    #Ordenar las misiones de mayor a menor, segun su dinero (experiencia), en caso de mismo dinero, ordenar alfabeticamente
+    n = len(misiones)
+    for i in range(n):
+        max_m = i
+        for j in range(i+1, n):
+            if (misiones[j].get_dinero() > misiones[i].get_dinero())or \
+                (misiones[j].get_dinero() == misiones[i].get_dinero) and \
+                (misiones[j].get_nombre() > misiones[i].get_nombre()):
+                max_m = j
+        #Intercambiar los rankings 
+        misiones[i], misiones[max_m] = misiones[max_m] , misiones[i]
+    top_5 = misiones[:5]
+    for i in top_5:
+        print(f"{i+1}-{top_5[i]}")
 
 def opcion_otras_consultas():
     while True:
@@ -80,14 +211,13 @@ def opcion_otras_consultas():
         print("2. Ver Top 10 Aventureros con Mayor Habilidad")
         print("3. Ver Top 5 Misiones con Mayor Recompensa")
         print("4. Volver al Menú Principal")
-        
+
         try:
             opcion = int(input("Seleccione una opción: "))
             if opcion == 1:
-                pass
+                ver_top_10_aventureros_con_mas_misiones_resueltas()
             elif opcion == 2:
                 mostrar_top_10(aventureros)
-
             elif opcion == 3:
                 pass
             elif opcion == 4:
