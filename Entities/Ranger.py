@@ -31,6 +31,8 @@ class Ranger(Aventurero):
     def __str__(self):
 
         if self._mascota:
-            return f"Ranger: {self.nombre}, ID: {self.id_}, Puntos de Habilidad: {self.puntos_habilidad}, Experiencia: {self.experiencia}, Dinero: {self.dinero}, Mascota: ({self._mascota})"
+            return f"Ranger: {self._nombre}, ID: {self._id}, Puntos de Habilidad: {self._puntos_habilidad}, Experiencia: {self._experiencia}, Dinero: {self._dinero}, Mascota: ({self._mascota})"
         else:
-            return f"Ranger: {self.nombre}, ID: {self.id_}, Puntos de Habilidad: {self.puntos_habilidad}, Experiencia: {self.experiencia}, Dinero: {self.dinero}, Mascota: No tiene mascota"
+            return f"Ranger: {self._nombre}, ID: {self._id}, Puntos de Habilidad: {self._puntos_habilidad}, Experiencia: {self._experiencia}, Dinero: {self._dinero}, Mascota: No tiene mascota"
+        
+      

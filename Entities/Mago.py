@@ -12,4 +12,4 @@ class Mago(Aventurero):
         self._mana = mana
 
     def __str__(self):
-        return f"Mago: {self.nombre}, ID: {self.id_}, Mana: {self._mana}, Puntos de Habilidad: {self.puntos_habilidad}, Experiencia: {self.experiencia}, Dinero: {self.dinero}"
+        return f"Nombre del mago: {self._nombre}, ID: {self._id}, Mana: {self._mana}, Puntos de Habilidad: {self._puntos_habilidad}, Experiencia: {self._experiencia}, Dinero: {self._dinero}"
