@@ -7,15 +7,15 @@ from .Ranger import Ranger, Mascota
 
 def registrar_aventurero(nombre, id, clase, puntos_habilidad, experiencia, dinero):
     try:
-        if not (1 <= puntos_habilidad <= 100 or 1 <= experiencia or 1 <= dinero):
+        if not (1 <= puntos_habilidad <= 100 and 1 <= experiencia and 1 <= dinero):
             print("Error: Los puntos de habilidad deben estar entre 1 y 100.")
-            return
+            return None
         if clase == "Guerrero":
             fuerza = input("Ingrese la fuerza del Guerrero ")
 
             if not (1 <= int(fuerza) <= 100):
                 print("Error: La fuerza del Guerrero debe estar entre 1 y 100.")
-                return
+                return None
             aventurero = Guerrero(
                 nombre, id, puntos_habilidad, experiencia, int(dinero), int(fuerza)
             )
@@ -24,7 +24,7 @@ def registrar_aventurero(nombre, id, clase, puntos_habilidad, experiencia, diner
             mana = input("Ingrese el mana del mago ")
             if not (1 <= int(mana) <= 1000):
                 print("Error: El mana del Mago debe estar entre 1 y 1000.")
-                return
+                return None
             aventurero = Mago(
                 nombre, id, puntos_habilidad, experiencia, dinero, int(mana)
             )
@@ -40,7 +40,7 @@ def registrar_aventurero(nombre, id, clase, puntos_habilidad, experiencia, diner
 
         else:
             print("Clase no válida.")
-            return
+            return None
 
         print(f"Aventurero {nombre} registrado con éxito.")
         return aventurero
@@ -54,6 +54,7 @@ def registrar_mision(nombre, rango, recompensa, completado, tipo, min_miembros):
             raise ValueError(
                 "El parámetro 'completado' debe ser un valor booleano (True o False)."
             )
+            return None
 
         if tipo not in ["grupal", "individual"]:
             raise ValueError("El parámetro 'tipo' debe ser 'grupal' o 'individual'.")
@@ -62,9 +63,11 @@ def registrar_mision(nombre, rango, recompensa, completado, tipo, min_miembros):
             raise ValueError(
                 "Para una misión grupal se debe especificar el número mínimo de miembros."
             )
+            return None
 
         if rango < 1 or rango > 5:
-            raise ValueError("Rango no es valido")
+            raise ValueError("Rango no es valido") 
+            return None
 
         mision = Mision(nombre, rango, recompensa, completado, tipo, min_miembros)
 

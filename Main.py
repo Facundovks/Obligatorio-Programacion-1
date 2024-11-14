@@ -34,10 +34,10 @@ misiones = [
     Mision("Asalto a la Fortaleza Oscura", 5, 5000.0, False, "individual", None),
     Mision("Caza de Dragón", 4, 4000.0, True, "grupal", 3),
     Mision("Expedición a las Ruinas Antiguas", 2, 2200.0, True, "grupal", 5),
-    Mision("Protección de la Aldea", 30, 1700.0, True, "grupal", 2),
-    Mision("Investigación de Magia Oscura", 40, 3500.0, False, "individual", None),
-    Mision("Toma de la Torre Maldita", 50, 6000.0, True, "grupal", 6),
-    Mision("Misión de Exploración Subterránea", 10, 1000.0, False, "individual", None),
+    Mision("Protección de la Aldea", 3, 1700.0, True, "grupal", 2),
+    Mision("Investigación de Magia Oscura", 4, 3500.0, False, "individual", None),
+    Mision("Toma de la Torre Maldita", 5, 6000.0, True, "grupal", 6),
+    Mision("Misión de Exploración Subterránea", 1, 1000.0, False, "individual", None),
 ]
 
 
@@ -54,6 +54,10 @@ def mostrar_menu():
 def opcion_registrar_aventurero():
     nombre = input("Ingrese el nombre del aventurero: ")
     id_ = int(input("Ingrese el id del aventurero: "))
+    for aventurero in aventureros:
+        if aventurero.get_id() == id_:
+            print("Error: El ID ingresado ya está en uso. Por favor, ingrese un ID único.")
+            return 
     clase = input("Ingrese la clase del aventurero(Guerrero,Mago,Ranger): ")
     puntos_habilidad = int(
         input("Ingrese los puntos de habilidad del aventurero(1 a 100): ")
@@ -62,7 +66,8 @@ def opcion_registrar_aventurero():
     dinero = int(input("Ingrese el dinero del aventurero: "))
 
     aventurero=registrar_aventurero(nombre, id_, clase, puntos_habilidad, experiencia, dinero)
-    aventureros.append(aventurero)
+    if (aventurero != None):
+        aventureros.append(aventurero)
 
 
 def opcion_registrar_mision():
@@ -75,7 +80,8 @@ def opcion_registrar_mision():
     min_miembros = int(input("Ingrese el minimo de miembros(vacio si individual): "))
 
     mision=registrar_mision(nombre, rango, recompensa, completado, Tipo, min_miembros)
-    misiones.append(mision)
+    if (mision != None):
+        misiones.append(mision)
 
 def opcion_realizar_mision():
     nombre_mision = str(input("Escriba el nombre de la mision: "))
@@ -209,6 +215,7 @@ def opcion_realizar_mision():
                 p.set_experiencia(50 + p.get_experiencia())
             if mision.get_rango() == 5:
                 p.set_experiencia(100 + p.get_experiencia())
+            p.completar_mision()
 
 
 def opcion_otras_consultas():
