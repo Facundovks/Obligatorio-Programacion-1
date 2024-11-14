@@ -6,3 +6,5 @@ El diagrama UML esta conformado por una entidad "gremio" en donde se encuentran 
 si está completada o no (Bool), su recompensa(int), si es grupal o individual(str) y el mínimo de miembros necesarios para completarla(int). Por otro lado, se encuentra la clase "Aventureros", en la cual también está el acceso a la información de los aventureros en general
 (su nombre(str), su id_(único)(int), sus puntos de habilidad(int) su experiencia()int y su dinero(double)). Luego, se desprenden de la clase "Aventureros". tres clases: "Guerrero", "Ranger" y "Mago"; éstas heredan los atributos de "Aventureros" y tienen tambien
 características propias: El "Guerrero" posee el atributo fuerza (int), el "Ranger" tiene una Mascota con nombre(str) y puntos de hablididad(int), por último, el "Mago" tiene la maná como atributo(int).
+
+Para ejecutarlo debe ejecutar el main.py dentro de visual studio
