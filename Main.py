@@ -282,7 +282,7 @@ def opcion_realizar_mision():
             p.completar_mision()
                 
     except (ErrorAventurero, ErrorMisión) as e:
-        print(f"Se produjo un error: {e}")
+        print(f"Se produjo un error")
 
 
 def opcion_otras_consultas():
