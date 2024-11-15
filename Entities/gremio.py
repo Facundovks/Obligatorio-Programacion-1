@@ -21,7 +21,7 @@ def registrar_aventurero(nombre, id, clase, puntos_habilidad, experiencia, diner
             )
 
         elif clase == "Mago":
-            mana = input("Ingrese el mana del mago ")
+            mana = input("Ingrese el mana del mago: ")
             if not (1 <= int(mana) <= 1000):
                 print("Error: El mana del Mago debe estar entre 1 y 1000.")
                 return None
@@ -30,8 +30,8 @@ def registrar_aventurero(nombre, id, clase, puntos_habilidad, experiencia, diner
             )
 
         elif clase == "Ranger":
-            nombre_mascota = input("Ingrese el nombre de la mascota")
-            puntos_mascota = input("Ingrese los puntos de la mascota")
+            nombre_mascota = input("Ingrese el nombre de la mascota: ")
+            puntos_mascota = input("Ingrese los puntos de la mascota: ")
             if int(puntos_mascota) > 0 and int(puntos_mascota) < 51:
                 mascota = Mascota(nombre_mascota, int(puntos_mascota))
                 aventurero = Ranger(

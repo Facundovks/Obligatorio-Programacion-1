@@ -70,34 +70,25 @@ def opcion_registrar_aventurero():
         aventureros.append(aventurero)
 
 
-def registrar_mision(nombre, rango, recompensa, completado, tipo, min_miembros):
-    try:
-        if not isinstance(completado, bool):
-            print(
-                "El parámetro 'completado' debe ser un valor booleano (True o False)."
-            )
-            return None
+def opcion_registrar_mision():
 
-        if tipo not in ["grupal", "individual"]:
-            raise ValueError("El parámetro 'tipo' debe ser 'grupal' o 'individual'.")
+    nombre = input("Ingrese el nombre de la mision: ")
+    rango = int(input("Ingrese el rango de la mision(1 a 5)): "))
+    recompensa = int(input("Ingrese la recompensa de la mision: "))
+    completado = bool(input("Ingrese si la mision esta completada o no(True/False) "))
+    if completado == "True":
+        completado = True
+    else:
+        False
+    Tipo = input("Ingrese el tipo de mision(grupal, individual) ")
+    if Tipo == "grupal":
+        min_miembros = int(input("Ingrese el minimo de miembros: "))
+    else: 
+        min_miembros= None
+    mision=registrar_mision(nombre, rango, recompensa, completado, Tipo, min_miembros)
+    if (mision != None):
+        misiones.append(mision)
 
-        if tipo == "grupal" and (min_miembros is None or min_miembros <= 0):
-            print(
-                "Para una misión grupal se debe especificar el número mínimo de miembros."
-            )
-            return None
-
-        if rango < 1 or rango > 5:
-            print("Rango no es valido") 
-            return None
-
-        mision = Mision(nombre, rango, recompensa, completado, tipo, min_miembros)
-
-        print(f"Misión '{nombre}' registrada con éxito!")
-        return mision
-
-    except ValueError as e:
-        print(f"Error al ingresar los datos de la misión: {e}")
 
 def opcion_realizar_mision():
     try:
