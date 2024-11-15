@@ -32,7 +32,7 @@ misiones = [
     Mision("Defensa del Castillo", 2, 2500.0, True, "grupal", 4),
     Mision("Rescate en el Bosque", 1, 800.0, False, "individual", None),
     Mision("Asalto a la Fortaleza Oscura", 5, 5000.0, False, "individual", None),
-    Mision("Caza de Dragón", 4, 4000.0, True, "grupal", 3),
+    Mision("Caza de Dragón", 4, 4000.0, False, "grupal", 3),
     Mision("Expedición a las Ruinas Antiguas", 2, 2200.0, True, "grupal", 5),
     Mision("Protección de la Aldea", 3, 1700.0, True, "grupal", 2),
     Mision("Investigación de Magia Oscura", 4, 3500.0, False, "individual", None),
@@ -112,7 +112,7 @@ def opcion_realizar_mision():
                         print("Esta es una misión individual, ya no se pueden agregar más aventureros.")
                         raise ErrorAventurero()
                     participantes.append(aventurero)
-                    break
+
                 
             if not aventurero:
                 print("El aventurero no existe!")
@@ -124,102 +124,150 @@ def opcion_realizar_mision():
                         rangos[1][0]
                         > p.get_puntos_habilidad() + p.get_puntos_habilidad()
                     ):
-                        print("El rango de su Ranger es 1")                   
+                        print("El rango de su Ranger es 1")      
+                        if mision.get_rango() > p.get_puntos_habilidad() + p.get_puntos_habilidad():
+                            print("El aventurero no tiene el rango suficiente!")
+                            raise ErrorAventurero             
                     elif (
                         rangos[2][0]
                         > p.get_puntos_habilidad() + p.get_puntos_habilidad()
                     ):
-                        print("El rango de su Ranger es 2")                   
+                        print("El rango de su Ranger es 2")      
+                        if mision.get_rango() > p.get_puntos_habilidad() + p.get_puntos_habilidad():
+                            print("El aventurero no tiene el rango suficiente!")
+                            raise ErrorAventurero             
                     elif (
                         rangos[3][0]
                         > p.get_puntos_habilidad() + p.get_puntos_habilidad()
                     ):
-                        print("El rango de su Ranger es 3")                    
+                        print("El rango de su Ranger es 3")  
+                        if mision.get_rango() > p.get_puntos_habilidad() + p.get_puntos_habilidad():
+                            print("El aventurero no tiene el rango suficiente!")
+                            raise ErrorAventurero                  
                     elif (
                         rangos[4][0]
                         > p.get_puntos_habilidad() + p.get_puntos_habilidad()
                     ):
-                        print("El rango de su Ranger es 4")                   
+                        print("El rango de su Ranger es 4")     
+                        if mision.get_rango() > p.get_puntos_habilidad() + p.get_puntos_habilidad():
+                            print("El aventurero no tiene el rango suficiente!")
+                            raise ErrorAventurero              
                     elif rangos[4][0] <= p.get_puntos_habilidad():
-                        print("El rango de su Ranger es 5")                   
+                        print("El rango de su Ranger es 5") 
+                        if mision.get_rango() > p.get_puntos_habilidad() + p.get_puntos_habilidad():
+                            print("El aventurero no tiene el rango suficiente!")
+                            raise ErrorAventurero                  
                 elif p.get_clase() == "Mago":
                     if (
                         rangos[1][0]
                         > p.get_puntos_habilidad() + p.get_mana() / 10
                     ):
-                        print("El rango de su Mago es 1")                    
+                        print("El rango de su Mago es 1")   
+                        if mision.get_rango() > p.get_puntos_habilidad() + p.get_mana() / 10:
+                            print("El aventurero no tiene el rango suficiente!")
+                            raise ErrorAventurero                 
                     elif (
                         rangos[2][0]
                         > p.get_puntos_habilidad() + p.get_mana() / 10
                     ):
-                        print("El rango de su Mago es 2")                   
+                        print("El rango de su Mago es 2")    
+                        if mision.get_rango() > p.get_puntos_habilidad() + p.get_mana() / 10:
+                            print("El aventurero no tiene el rango suficiente!")
+                            raise ErrorAventurero               
                     elif (
                         rangos[3][0]
                         > p.get_puntos_habilidad() + p.get_mana() / 10
                     ):
-                        print("El rango de su Mago es 3")                  
+                        print("El rango de su Mago es 3")     
+                        if mision.get_rango() > p.get_puntos_habilidad() + p.get_mana() / 10:
+                            print("El aventurero no tiene el rango suficiente!")
+                            raise ErrorAventurero             
                     elif (
                         rangos[4][0]
                         > p.get_puntos_habilidad() + p.get_mana() / 10
                     ):
-                        print("El rango de su Mago es 4")                  
+                        print("El rango de su Mago es 4")   
+                        if mision.get_rango() > p.get_puntos_habilidad() + p.get_mana() / 10:
+                            print("El aventurero no tiene el rango suficiente!")
+                            raise ErrorAventurero               
                     elif (
                         rangos[4][0]
                         <= p.get_puntos_habilidad() + p.get_mana() / 10
                     ):
-                        print("El rango de su Mago es 5")                   
+                        print("El rango de su Mago es 5")   
+                        if mision.get_rango() > p.get_puntos_habilidad() + p.get_mana() / 10:
+                            print("El aventurero no tiene el rango suficiente!")
+                            raise ErrorAventurero                
                 elif p.get_clase() == "Guerrero":
                     if (
                         rangos[1][0]
                         > p.get_puntos_habilidad() + p.get_fuerza() / 2
                     ):
-                        print("El rango de su Guerrero es 1")                   
+                        print("El rango de su Guerrero es 1")      
+                        if mision.get_rango() > p.get_puntos_habilidad() + p.get_fuerza() / 2:
+                            print("El aventurero no tiene el rango suficiente!")
+                            raise ErrorAventurero             
                     elif (
                         rangos[2][0]
                         > p.get_puntos_habilidad() + p.get_fuerza() / 2
                     ):
-                        print("El rango de su Guerrero es 2")                 
+                        print("El rango de su Guerrero es 2")     
+                        if mision.get_rango() > p.get_puntos_habilidad() + p.get_fuerza() / 2:
+                            print("El aventurero no tiene el rango suficiente!")
+                            raise ErrorAventurero            
                     elif (
                         rangos[3][0]
                         > p.get_puntos_habilidad() + p.get_fuerza() / 2
                     ):
                         print("El rango de su Guerrero es 3")   
+                        if mision.get_rango() > p.get_puntos_habilidad() + p.get_fuerza() / 2:
+                            print("El aventurero no tiene el rango suficiente!")
+                            raise ErrorAventurero
                     elif (
                         rangos[4][0]
                         > p.get_puntos_habilidad() + p.get_fuerza() / 2
                     ):
                         print("El rango de su Guerrero es 4")
+                        if mision.get_rango() > p.get_puntos_habilidad() + p.get_fuerza() / 2:
+                            print("El aventurero no tiene el rango suficiente!")
+                            raise ErrorAventurero
                         
                     elif (
                         rangos[4][0]
                         <= p.get_puntos_habilidad() + p.get_fuerza() / 2
                     ):
                         print("El rango de su Guerrero es 5")      
+                        if mision.get_rango() > p.get_puntos_habilidad() + p.get_fuerza() / 2:
+                            print("El aventurero no tiene el rango suficiente!")
+                            raise ErrorAventurero
 
-            if (
+        if (
                 mision.get_tipo() == "grupal"
                 and len(participantes) < mision.get_min_miembros()
             ):
                 print("No hay suficientes aventureros para realizar la misión!")
                 raise ErrorAventurero()
-            mision.completar_mision()
-            recompensa_por_aventurero = mision.get_recompensa() / len(participantes)
-            for p in participantes:
-                p.set_dinero(recompensa_por_aventurero + p.get_dinero())
-                if mision.get_rango() == 1:
-                    p.set_experiencia(5 + p.get_experiencia())
-                if mision.get_rango() == 2:
-                    p.set_experiencia(10 + p.get_experiencia())
-                if mision.get_rango() == 3:
-                    p.set_experiencia(20 + p.get_experiencia())
-                if mision.get_rango() == 4:
-                    p.set_experiencia(50 + p.get_experiencia())
-                if mision.get_rango() == 5:
-                    p.set_experiencia(100 + p.get_experiencia())
-                p.completar_mision()
-    except:
-        ErrorAventurero
-        ErrorMisión
+
+        mision.completar_mision()
+        print("Se completó la misión")
+        recompensa_por_aventurero = mision.get_recompensa() / len(participantes)
+        for p in participantes:
+            p.set_dinero(recompensa_por_aventurero + p.get_dinero())
+            if mision.get_rango() == 1:
+                p.set_experiencia(5 + p.get_experiencia())
+            if mision.get_rango() == 2:
+                p.set_experiencia(10 + p.get_experiencia())
+            if mision.get_rango() == 3:
+                p.set_experiencia(20 + p.get_experiencia())
+            if mision.get_rango() == 4:
+                p.set_experiencia(50 + p.get_experiencia())
+            if mision.get_rango() == 5:
+                p.set_experiencia(100 + p.get_experiencia())
+            p.completar_mision()
+                
+    except (ErrorAventurero, ErrorMisión) as e:
+        print(f"Se produjo un error: {e}")
+
 
 def opcion_otras_consultas():
     while True:

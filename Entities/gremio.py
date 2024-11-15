@@ -8,7 +8,7 @@ from .Ranger import Ranger, Mascota
 def registrar_aventurero(nombre, id, clase, puntos_habilidad, experiencia, dinero):
     try:
         if not (1 <= puntos_habilidad <= 100 and 1 <= experiencia and 1 <= dinero):
-            print("Error: Los puntos de habilidad deben estar entre 1 y 100.")
+            print("Error: Datos ingresados inaválidos.")
             return None
         if clase == "Guerrero":
             fuerza = input("Ingrese la fuerza del Guerrero ")
