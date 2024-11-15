@@ -84,139 +84,142 @@ def opcion_registrar_mision():
         misiones.append(mision)
 
 def opcion_realizar_mision():
-    nombre_mision = str(input("Escriba el nombre de la mision: "))
-    mision = None
-    for m in misiones:
-        if m.get_nombre() == nombre_mision:
-            mision = m
-            break
-    if not mision:
-        print("Misión no encontrada!")
-        raise ErrorMisión
-    if mision.is_completado():
-        print("Esta mision ya ha sido completada!")
-        raise ErrorMisión
-
-    participantes = []
-    rangos = [[1, 20], [21, 40], [41, 60], [61, 80], [81, 100]]
-    while True:
-        id_aventurero = str(input("Ingrese el ID del aventurero (o 'fin' para terminar): "))
-        aventurero = None
-        if id_aventurero == "fin":
+    try:
+        nombre_mision = str(input("Escriba el nombre de la mision: "))
+        mision = None
+        for m in misiones:
+            if m.get_nombre() == nombre_mision:
+                mision = m
                 break
-        for a in aventureros:            
-            if str(a.get_id()) == id_aventurero:
-                aventurero = a
-                if mision.get_tipo() == "individual" and len(participantes) >= 1:
-                    print("Esta es una misión individual, ya no se pueden agregar más aventureros.")
-                    raise ErrorAventurero
-                participantes.append(aventurero)
-                break
-            
-        if not aventurero:
-            print("El aventurero no existe!")
-            raise ErrorAventurero
+        if not mision:
+            print("Misión no encontrada!")
+            raise ErrorMisión()
+        if mision.is_completado():
+            print("Esta mision ya ha sido completada!")
+            raise ErrorMisión()
 
-        for p in participantes:
-            if p.get_clase() == "Ranger":
-                if (
-                    rangos[1][0]
-                    > p.get_puntos_habilidad() + p.get_puntos_habilidad()
-                ):
-                    print("El rango de su Ranger es 1")                   
-                elif (
-                    rangos[2][0]
-                    > p.get_puntos_habilidad() + p.get_puntos_habilidad()
-                ):
-                    print("El rango de su Ranger es 2")                   
-                elif (
-                    rangos[3][0]
-                    > p.get_puntos_habilidad() + p.get_puntos_habilidad()
-                ):
-                    print("El rango de su Ranger es 3")                    
-                elif (
-                    rangos[4][0]
-                    > p.get_puntos_habilidad() + p.get_puntos_habilidad()
-                ):
-                    print("El rango de su Ranger es 4")                   
-                elif rangos[4][0] <= p.get_puntos_habilidad():
-                    print("El rango de su Ranger es 5")                   
-            elif p.get_clase() == "Mago":
-                if (
-                    rangos[1][0]
-                    > p.get_puntos_habilidad() + p.get_mana() / 10
-                ):
-                    print("El rango de su Mago es 1")                    
-                elif (
-                    rangos[2][0]
-                    > p.get_puntos_habilidad() + p.get_mana() / 10
-                ):
-                    print("El rango de su Mago es 2")                   
-                elif (
-                    rangos[3][0]
-                    > p.get_puntos_habilidad() + p.get_mana() / 10
-                ):
-                    print("El rango de su Mago es 3")                  
-                elif (
-                    rangos[4][0]
-                    > p.get_puntos_habilidad() + p.get_mana() / 10
-                ):
-                    print("El rango de su Mago es 4")                  
-                elif (
-                    rangos[4][0]
-                    <= p.get_puntos_habilidad() + p.get_mana() / 10
-                ):
-                    print("El rango de su Mago es 5")                   
-            elif p.get_clase() == "Guerrero":
-                if (
-                    rangos[1][0]
-                    > p.get_puntos_habilidad() + p.get_fuerza() / 2
-                ):
-                    print("El rango de su Guerrero es 1")                   
-                elif (
-                    rangos[2][0]
-                    > p.get_puntos_habilidad() + p.get_fuerza() / 2
-                ):
-                    print("El rango de su Guerrero es 2")                 
-                elif (
-                    rangos[3][0]
-                    > p.get_puntos_habilidad() + p.get_fuerza() / 2
-                ):
-                    print("El rango de su Guerrero es 3")   
-                elif (
-                    rangos[4][0]
-                    > p.get_puntos_habilidad() + p.get_fuerza() / 2
-                ):
-                    print("El rango de su Guerrero es 4")
-                    
-                elif (
-                    rangos[4][0]
-                    <= p.get_puntos_habilidad() + p.get_fuerza() / 2
-                ):
-                    print("El rango de su Guerrero es 5")      
+        participantes = []
+        rangos = [[1, 20], [21, 40], [41, 60], [61, 80], [81, 100]]
+        while True:
+            id_aventurero = str(input("Ingrese el ID del aventurero (o 'fin' para terminar): "))
+            aventurero = None
+            if id_aventurero == "fin":
+                    break
+            for a in aventureros:            
+                if str(a.get_id()) == id_aventurero:
+                    aventurero = a
+                    if mision.get_tipo() == "individual" and len(participantes) >= 1:
+                        print("Esta es una misión individual, ya no se pueden agregar más aventureros.")
+                        raise ErrorAventurero()
+                    participantes.append(aventurero)
+                    break
+                
+            if not aventurero:
+                print("El aventurero no existe!")
+                raise ErrorAventurero()
 
-        if (
-            mision.get_tipo() == "grupal"
-            and len(participantes) < mision.get_min_miembros()
-        ):
-            print("No hay suficientes aventureros para realizar la misión!")
-            raise ErrorAventurero
-        mision.completar_mision()
-        recompensa_por_aventurero = mision.get_recompensa() / len(participantes)
-        for p in participantes:
-            p.set_dinero(recompensa_por_aventurero + p.get_dinero())
-            if mision.get_rango() == 1:
-                p.set_experiencia(5 + p.get_experiencia())
-            if mision.get_rango() == 2:
-                p.set_experiencia(10 + p.get_experiencia())
-            if mision.get_rango() == 3:
-                p.set_experiencia(20 + p.get_experiencia())
-            if mision.get_rango() == 4:
-                p.set_experiencia(50 + p.get_experiencia())
-            if mision.get_rango() == 5:
-                p.set_experiencia(100 + p.get_experiencia())
-            p.completar_mision()
+            for p in participantes:
+                if p.get_clase() == "Ranger":
+                    if (
+                        rangos[1][0]
+                        > p.get_puntos_habilidad() + p.get_puntos_habilidad()
+                    ):
+                        print("El rango de su Ranger es 1")                   
+                    elif (
+                        rangos[2][0]
+                        > p.get_puntos_habilidad() + p.get_puntos_habilidad()
+                    ):
+                        print("El rango de su Ranger es 2")                   
+                    elif (
+                        rangos[3][0]
+                        > p.get_puntos_habilidad() + p.get_puntos_habilidad()
+                    ):
+                        print("El rango de su Ranger es 3")                    
+                    elif (
+                        rangos[4][0]
+                        > p.get_puntos_habilidad() + p.get_puntos_habilidad()
+                    ):
+                        print("El rango de su Ranger es 4")                   
+                    elif rangos[4][0] <= p.get_puntos_habilidad():
+                        print("El rango de su Ranger es 5")                   
+                elif p.get_clase() == "Mago":
+                    if (
+                        rangos[1][0]
+                        > p.get_puntos_habilidad() + p.get_mana() / 10
+                    ):
+                        print("El rango de su Mago es 1")                    
+                    elif (
+                        rangos[2][0]
+                        > p.get_puntos_habilidad() + p.get_mana() / 10
+                    ):
+                        print("El rango de su Mago es 2")                   
+                    elif (
+                        rangos[3][0]
+                        > p.get_puntos_habilidad() + p.get_mana() / 10
+                    ):
+                        print("El rango de su Mago es 3")                  
+                    elif (
+                        rangos[4][0]
+                        > p.get_puntos_habilidad() + p.get_mana() / 10
+                    ):
+                        print("El rango de su Mago es 4")                  
+                    elif (
+                        rangos[4][0]
+                        <= p.get_puntos_habilidad() + p.get_mana() / 10
+                    ):
+                        print("El rango de su Mago es 5")                   
+                elif p.get_clase() == "Guerrero":
+                    if (
+                        rangos[1][0]
+                        > p.get_puntos_habilidad() + p.get_fuerza() / 2
+                    ):
+                        print("El rango de su Guerrero es 1")                   
+                    elif (
+                        rangos[2][0]
+                        > p.get_puntos_habilidad() + p.get_fuerza() / 2
+                    ):
+                        print("El rango de su Guerrero es 2")                 
+                    elif (
+                        rangos[3][0]
+                        > p.get_puntos_habilidad() + p.get_fuerza() / 2
+                    ):
+                        print("El rango de su Guerrero es 3")   
+                    elif (
+                        rangos[4][0]
+                        > p.get_puntos_habilidad() + p.get_fuerza() / 2
+                    ):
+                        print("El rango de su Guerrero es 4")
+                        
+                    elif (
+                        rangos[4][0]
+                        <= p.get_puntos_habilidad() + p.get_fuerza() / 2
+                    ):
+                        print("El rango de su Guerrero es 5")      
 
+            if (
+                mision.get_tipo() == "grupal"
+                and len(participantes) < mision.get_min_miembros()
+            ):
+                print("No hay suficientes aventureros para realizar la misión!")
+                raise ErrorAventurero()
+            mision.completar_mision()
+            recompensa_por_aventurero = mision.get_recompensa() / len(participantes)
+            for p in participantes:
+                p.set_dinero(recompensa_por_aventurero + p.get_dinero())
+                if mision.get_rango() == 1:
+                    p.set_experiencia(5 + p.get_experiencia())
+                if mision.get_rango() == 2:
+                    p.set_experiencia(10 + p.get_experiencia())
+                if mision.get_rango() == 3:
+                    p.set_experiencia(20 + p.get_experiencia())
+                if mision.get_rango() == 4:
+                    p.set_experiencia(50 + p.get_experiencia())
+                if mision.get_rango() == 5:
+                    p.set_experiencia(100 + p.get_experiencia())
+                p.completar_mision()
+    except:
+        ErrorAventurero
+        ErrorMisión
 
 def opcion_otras_consultas():
     while True:

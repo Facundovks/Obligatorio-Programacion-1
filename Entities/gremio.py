@@ -46,12 +46,13 @@ def registrar_aventurero(nombre, id, clase, puntos_habilidad, experiencia, diner
         return aventurero
     except ValueError as e:
         print(f"Error de entrada: {e}")
+        return None
 
 
 def registrar_mision(nombre, rango, recompensa, completado, tipo, min_miembros):
     try:
         if not isinstance(completado, bool):
-            raise ValueError(
+            print(
                 "El parámetro 'completado' debe ser un valor booleano (True o False)."
             )
             return None
@@ -60,13 +61,13 @@ def registrar_mision(nombre, rango, recompensa, completado, tipo, min_miembros):
             raise ValueError("El parámetro 'tipo' debe ser 'grupal' o 'individual'.")
 
         if tipo == "grupal" and (min_miembros is None or min_miembros <= 0):
-            raise ValueError(
+            print(
                 "Para una misión grupal se debe especificar el número mínimo de miembros."
             )
             return None
 
         if rango < 1 or rango > 5:
-            raise ValueError("Rango no es valido") 
+            print("Rango no es valido") 
             return None
 
         mision = Mision(nombre, rango, recompensa, completado, tipo, min_miembros)
