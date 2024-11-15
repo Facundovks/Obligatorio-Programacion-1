@@ -1,2 +1,0 @@
-class ErrorMisión(Exception):
-    pass
